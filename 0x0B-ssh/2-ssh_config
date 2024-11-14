@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+IdentityFile ~/.ssh/school
+PasswordAuthenticaion no

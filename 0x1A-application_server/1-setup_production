@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# 
+sudo apt-get update
+sudo apt-get install python3-pip python3-dev nginx
+cd AirBnB_clone_v2
+pip install gunicorn flask
+sudo ufw allow 5000
+GUNICORN=$(which gunicorn)
+SERVICE_CONFIG=/etc/systemd/system/AirBnB_clone_v2.service
+NGINX_CONFIG=/etc/nginx/sites-available/default
+NCONFIG="\
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	add_header X-Served-By $HOSTNAME;
+	root /var/www/html;
+	index index.html index.htm index.nginx-debian.html;
+
+	server_name _;
+
+	location /airbnb-onepage/ {
+		proxy_pass http://localhost:5000;
+	}
+	location /redirect_me {
+		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+	}
+}
+"
+CONFIG="\
+[Unit]
+Description=Gunicorn instance to serve AirBnB_clone_v2
+After=network.target
+
+[Service]
+User=$USER
+Group=www-data
+WorkingDirectory=/home/ubuntu/AirBnB_clone_v4
+Environment=\"PATH=/home/ubuntu/AirBnB_clone_v4\"
+ExecStart=$GUNICORN --workers 3 --bind localhost:5000 web_flask.0-hello_route:app
+
+[Install]
+WantedBy=multi-user.target
+"
+sudo touch $SERVICE_CONFIG
+sudo echo "$CONFIG" | sudo tee -a $SERVICE_CONFIG > /dev/null
+sudo echo "$NCONFIG" | sudo tee -a $NGINX_CONFIG > /dev/null
+sudo systemctl daemon-reload
+sudo systemctl start AirBnB_clone_v2
+sudo systemctl enable AirBnB_clone_v2
+# sudo reboot

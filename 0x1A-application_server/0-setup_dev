@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# configures the file web_flask/0-hello_route.py to serve its content from the route /airbnb-onepage/ on port 5000.
+#Tests it and curls it (curl 127.0.0.1:5000/airbnb-onepage/)
+sudo sed -i "s@app.route('/')@app.route('/airbnb-onepage/')@" web_flask/0-hello_route.py
+
+python3 -m web_flask.0-hello_route
+
