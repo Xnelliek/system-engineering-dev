@@ -64,7 +64,9 @@ Below is a brief description of each directory in the repository:
 | `0x1B-web_stack_debugging_4` | Further debugging web stack issues |
 | `attack_is_the_best_defense` | Security practices and proactive defense |
 | `command_line_for_the_win` | Command-line challenges and practice |
-
+## Author
+Self learning from W3 schools and youtube 
+Nelvine Isubire Kavaya
 ## How to Use
 
 Clone the repository:
@@ -72,3 +74,5 @@ Clone the repository:
 ```bash
 git clone https://github.com/Xnelliek/system-engineering-dev.git
 cd system-engineering-dev
+
+
